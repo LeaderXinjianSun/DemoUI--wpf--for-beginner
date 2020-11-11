@@ -3,10 +3,79 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet"
         xmlns:local="clr-namespace:DemoUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="DemoUI" Height="768" Width="1024" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu VerticalAlignment="Center">
+            <MenuItem Header="主页" Click="MainPageSelect"></MenuItem>
+            <MenuItem Header="参数" Click="ParameterPageSelect"></MenuItem>
+        </Menu>
+        <Grid  x:Name="MainPageGrid" Grid.Row="1" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <HalconDotNet:HWindowControlWPF x:Name="ImageWindow1" Margin="1"></HalconDotNet:HWindowControlWPF>
+            <TextBox x:Name="MsgTextBox" Grid.Row="1" Background="Black" Foreground="White" VerticalAlignment="Stretch" VerticalContentAlignment="Top"
+                     HorizontalContentAlignment="Left" IsReadOnly="True" FontSize="14" FontFamily="宋体" AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" Margin="1"
+                     TextChanged="MsgTextBox_TextChanged"></TextBox>
+            <Grid Grid.Column="1" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Margin="10" Content="功能" FontSize="20" Click="FuncButtonClick"></Button>
+                <Button Grid.Column="1" Margin="10" Content="扫码" FontSize="20" Click="ScanButtonClick"></Button>
+                <Button x:Name="PLCButton" Grid.Column="2" Margin="10" Content="PLC" FontSize="20"></Button>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" Grid.ColumnSpan="3">
+                    <TextBlock Text="计数器"></TextBlock>
+                    <TextBox Name="CounterText" Width="100"></TextBox>
+                </StackPanel>
+                <Button Grid.Row="2" Margin="10" Content="拍照" FontSize="20" Click="GrabImageButtonClick"></Button>
+                <Button Grid.Row="2" Grid.Column="1" Margin="10" Content="ROI" FontSize="20" Click="DrawROIButtonClick"></Button>
+                <Button Grid.Row="2" Grid.Column="2" Margin="10" Content="读ROI" FontSize="20" Click="ReadROIButtonClick"></Button>
+                <Button Grid.Row="3" Grid.Column="0" Margin="10" Content="读取" FontSize="20" Click="ReadImageButtonClick"></Button>
+                <Button Grid.Row="3" Grid.Column="1" Margin="10" Content="保存" FontSize="20" Click="SaveImageButtonClick"></Button>
+            </Grid>
+        </Grid>
+        <Grid x:Name="ParameterGrid" Grid.Row="1" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="PLC"></GroupBox>
+            <GroupBox Grid.Column="1" Header="Robot"></GroupBox>
+        </Grid>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem Content="PLC"></StatusBarItem>
+            <Ellipse x:Name="PLCConnect" Width="20" Height="20" Fill="Red"></Ellipse>
+            <StatusBarItem Content="周期"></StatusBarItem>
+            <TextBlock x:Name="CycleTime" Text="20ms"></TextBlock>
+        </StatusBar>
     </Grid>
 </Window>
